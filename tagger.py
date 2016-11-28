@@ -31,3 +31,5 @@ class Tagger:
 
         print "\n###### Mac Morpho Corpus #####"
         mac_morpho_result = self.run_tagger(mac_morpho, tokenized)
+
+        return {"floresta": floresta_result, "mac morpho": mac_morpho_result}
