@@ -25,10 +25,12 @@ class ServerHandler(Handler):
         self._set_headers()
         self.wfile.write(tagger.run(post_data))
 
+    def do_GET(self):
+      self._set_headers()
+      self.wfile.write("Playing with NLTK")
+
 # Read port selected by the cloud for our application
 PORT = int(os.getenv('PORT', 8000))
-# Change current directory to avoid exposure of control files
-os.chdir('static')
 
 httpd = Server(("", PORT), ServerHandler)
 try:
