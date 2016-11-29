@@ -1,1 +1,1 @@
-web: python server.py
+web: python nltk.downloader all && python server.py
