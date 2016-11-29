@@ -1,3 +1,6 @@
+# encoding: utf-8
+
+import json
 import os
 from tagger import Tagger
 try:
@@ -10,20 +13,21 @@ except ImportError:
 
 class ServerHandler(Handler):
 
-    def _set_headers(self):
+    def _set_headers(self, content_type="text/html"):
         self.send_response(200)
-        self.send_header('Content-type', 'text/html')
+        self.send_header('Content-type', content_type)
         self.end_headers()
 
     def do_POST(self):
-        # Doesn't do anything with posted data
-        # <--- Gets the size of data
         content_length = int(self.headers['Content-Length'])
-        # <--- Gets the data itself
         post_data = self.rfile.read(content_length)
+
         tagger = Tagger()
-        self._set_headers()
-        self.wfile.write(tagger.run(post_data))
+        response = tagger.run(post_data)
+
+        print "Posting results"
+        self._set_headers("application/json")
+        self.wfile.write(json.dumps(response))
 
     def do_GET(self):
       self._set_headers()
