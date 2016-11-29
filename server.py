@@ -31,6 +31,7 @@ class ServerHandler(Handler):
 
 # Read port selected by the cloud for our application
 PORT = int(os.getenv('PORT', 8000))
+os.chdir('.')
 
 httpd = Server(("", PORT), ServerHandler)
 try:
