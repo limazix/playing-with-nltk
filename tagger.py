@@ -58,7 +58,7 @@ class Tagger:
         return tagger_trained.tag(tokenized)
 
     def run(self, text):
-        tokenized = word_tokenize(text)
+        tokenized = text.split() # word_tokenize(text)
 
         print("\n##### Floresta Corpus #####")
         floresta_result = self.run_tagger("floresta", floresta, tokenized)

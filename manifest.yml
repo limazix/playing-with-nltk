@@ -6,3 +6,5 @@ applications:
   name: Playing with NLTK
   host: playing-with-nltk
   disk_quota: 1024M
+  env:
+    NLTK_DATA: /home/vcap/app/nltk_data
