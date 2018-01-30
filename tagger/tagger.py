@@ -10,7 +10,8 @@ from nltk.corpus import floresta, mac_morpho
 class Tagger:
 
     def build_path(self, corpus_name, tagger_name):
-        return "./taggers/" + corpus_name + "_" + tagger_name + ".pkl"
+        venv = os.getcwd() + "/venv"
+        return venv + "/taggers/" + corpus_name + "_" + tagger_name + ".pkl"
 
     def if_exists(self, corpus_name, tagger_name):
         path = self.build_path(corpus_name, tagger_name)
@@ -35,18 +36,18 @@ class Tagger:
             return tagger
 
     def train(self, corpus_name, train_sents):
-        print "Default tagger"
+        print("Default tagger")
         default_tagger = nltk.DefaultTagger('NN')
 
-        print "Train Unigram"
+        print("Train Unigram")
         unigram_tagger = self.get_tagger(
             corpus_name, train_sents, "unigram", nltk.UnigramTagger, default_tagger)
 
-        print "Train Bigram"
+        print("Train Bigram")
         bigram_tagger = self.get_tagger(
             corpus_name, train_sents, "bigram", nltk.BigramTagger, unigram_tagger)
 
-        print "Train Trigram"
+        print("Train Trigram")
         trigram_tagger = self.get_tagger(
             corpus_name, train_sents, "trigram", nltk.TrigramTagger, bigram_tagger)
 
@@ -60,14 +61,14 @@ class Tagger:
     def run(self, text):
         tokenized = text.split() # word_tokenize(text)
 
-        print "\n##### Floresta Corpus #####"
+        print("\n##### Floresta Corpus #####")
         floresta_result = self.run_tagger("floresta", floresta, tokenized)
 
-        print "\n###### Mac Morpho Corpus #####"
+        print("\n###### Mac Morpho Corpus #####")
         mac_morpho_result = self.run_tagger(
             "mac_morpho", mac_morpho, tokenized)
 
-        print "Tagger result"
+        print("Tagger result")
         result = {"floresta": floresta_result, "mac morpho": mac_morpho_result}
 
         return result
