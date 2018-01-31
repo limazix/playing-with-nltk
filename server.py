@@ -3,7 +3,7 @@
 import logging
 import json
 import os
-from tagger import Tagger
+from tagger import Tagger, TaggerTrainer
 
 from flask import Flask, request
 app = Flask(__name__)
@@ -18,7 +18,6 @@ def hello():
 def pos():
     post_data = request.json["text"]
 
-    print(post_data)
     text_tagger = Tagger()
     response = text_tagger.run(post_data)
 
@@ -33,4 +32,5 @@ def server_error(e):
     """.format(e), 500
 
 if __name__ == '__main__':
+    TaggerTrainer().run()
     app.run(host='0.0.0.0', port=PORT, debug=True)
