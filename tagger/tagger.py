@@ -3,6 +3,7 @@
 import os
 from pickle import load
 from nltk.tokenize import word_tokenize
+from tagger.corpus import Corpus
 
 class Tagger:
     def build_path(self, corpus_name, tagger_name):
@@ -20,17 +21,12 @@ class Tagger:
         tagger_trained = self.get_tagger(corpus_name, "trigram")
         return tagger_trained.tag(tokenized)
 
-    def run(self, text):
+    def run(self, text, corpus=Corpus.MAC_MORPHO):
         tokenized = word_tokenize(text, language='portuguese')
 
-        print("\n##### Floresta Corpus #####")
-        floresta_result = self.run_tagger("floresta", tokenized)
-
-        print("\n###### Mac Morpho Corpus #####")
-        mac_morpho_result = self.run_tagger(
-            "mac_morpho", tokenized)
-
-        print("Tagger result")
-        result = {"floresta": floresta_result, "mac morpho": mac_morpho_result}
-
-        return result
+        if corpus == Corpus.FLORESTA:
+            print("\n##### Floresta Corpus #####")
+            return self.run_tagger("floresta", tokenized)
+        elif corpus == Corpus.MAC_MORPHO:
+            print("\n###### Mac Morpho Corpus #####")
+            return self.run_tagger("mac_morpho", tokenized)

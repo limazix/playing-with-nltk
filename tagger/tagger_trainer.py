@@ -43,7 +43,7 @@ class TaggerTrainer:
         self.build_tagger(
             corpus_name, train_sents, "trigram", nltk.TrigramTagger, bigram_tagger)
 
-    def run(self, corpus=Corpus.FLORESTA, force=False):
+    def run(self, corpus=Corpus.MAC_MORPHO, force=False):
         self.should_force = force
 
         if corpus == Corpus.FLORESTA:
