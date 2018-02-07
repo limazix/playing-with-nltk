@@ -4,14 +4,10 @@ import os
 from pickle import dump
 import nltk
 from nltk.corpus import floresta, mac_morpho
-
+from tagger.tagger_base import TaggerBase
 from tagger.corpus import Corpus
 
-class TaggerTrainer:    
-    def build_path(self, corpus_name, tagger_name):
-        venv = os.getcwd() + "/venv"
-        return venv + "/taggers/" + corpus_name + "_" + tagger_name + ".pkl"
-
+class TaggerTrainer(TaggerBase):
     def exists(self, corpus_name, tagger_name):
         path = self.build_path(corpus_name, tagger_name)
         return os.path.isfile(path)
@@ -43,7 +39,7 @@ class TaggerTrainer:
         self.build_tagger(
             corpus_name, train_sents, "trigram", nltk.TrigramTagger, bigram_tagger)
 
-    def run(self, corpus=Corpus.MAC_MORPHO, force=False):
+    def run(self, corpus=Corpus.FLORESTA, force=False):
         self.should_force = force
 
         if corpus == Corpus.FLORESTA:

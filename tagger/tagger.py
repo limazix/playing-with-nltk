@@ -4,12 +4,9 @@ import os
 from pickle import load
 from nltk.tokenize import word_tokenize
 from tagger.corpus import Corpus
+from tagger.tagger_base import TaggerBase
 
-class Tagger:
-    def build_path(self, corpus_name, tagger_name):
-        venv = os.getcwd() + "/venv"
-        return venv + "/taggers/" + corpus_name + "_" + tagger_name + ".pkl"
-
+class Tagger(TaggerBase):
     def get_tagger(self, corpus_name, tagger_name):
         path = self.build_path(corpus_name, tagger_name)
         data = open(path, "rb")
@@ -21,7 +18,7 @@ class Tagger:
         tagger_trained = self.get_tagger(corpus_name, "trigram")
         return tagger_trained.tag(tokenized)
 
-    def run(self, text, corpus=Corpus.MAC_MORPHO):
+    def run(self, text, corpus=Corpus.FLORESTA):
         tokenized = word_tokenize(text, language='portuguese')
 
         if corpus == Corpus.FLORESTA:

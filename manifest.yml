@@ -8,3 +8,4 @@ applications:
   disk_quota: 1024M
   env:
     NLTK_DATA: /home/vcap/app/nltk_data
+    TAGGER_DATA: /home/vcap/app/tagger_data
